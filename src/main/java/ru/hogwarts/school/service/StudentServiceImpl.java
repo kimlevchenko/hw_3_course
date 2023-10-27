@@ -28,7 +28,9 @@ public class StudentServiceImpl implements StudentService {
     }
 
     public Student update(Student student) {
-        return repository.save(student);
+        return repository.findById(student.getId())
+                .map(entity -> repository.save(student))
+                .orElse(null);
     }
 
     public Collection<Student> findByAge(int age) {

@@ -28,7 +28,9 @@ public class FacultyServiceImpl implements FacultyService {
     }
 
     public Faculty update(Faculty faculty) {
-        return repository.save(faculty);
+        return repository.findById(faculty.getId())
+                .map(entity -> repository.save(faculty))
+                .orElse(null);
     }
 
     public void remove(long id) {
