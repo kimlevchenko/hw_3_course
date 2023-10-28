@@ -38,4 +38,5 @@ public class FacultyServiceImpl implements FacultyService {
     public Collection<Faculty> getAllFaculties() {
         return repository.findAll();
     }
+
 }

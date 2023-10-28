@@ -1,4 +1,6 @@
 package ru.hogwarts.school.controller;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.service.FacultyService;
@@ -44,6 +46,4 @@ public class FacultyController {
                                                  @RequestParam(required = false) String color) {
         return service.findByNameOrColor(name, color);
     }
-
-
 }
