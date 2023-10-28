@@ -19,8 +19,4 @@ public interface StudentService {
 
     Collection<Student> findByAgeBetween(int min, int max);
 
-    Collection<Student> findByFaculty_id(Long id);
-
-    Faculty findFacultyByStudent(Long id);
-
 }

@@ -44,11 +44,4 @@ public class StudentServiceImpl implements StudentService {
         return repository.findByAgeBetween(min, max);
     }
 
-    public Collection<Student> findByFaculty_id(Long id) {
-        return repository.findByFaculty_id(id);
-    }
-
-    public Faculty findFacultyByStudent(Long id) {
-        return repository.getById(id).getFaculty();
-    }
 }
