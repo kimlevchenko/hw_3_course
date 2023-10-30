@@ -1,8 +1,11 @@
 package ru.hogwarts.school.service;
+
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.StudentRepository;
+
 import java.util.Collection;
 
 @Service
@@ -44,4 +47,7 @@ public class StudentServiceImpl implements StudentService {
         return repository.findByAgeBetween(min, max);
     }
 
+    public Faculty getFacultyOfStudent(Long studentId) {
+        return repository.get(studentId).getFaculty();
+    }
 }

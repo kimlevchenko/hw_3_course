@@ -1,13 +1,18 @@
 package ru.hogwarts.school.service;
+
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 import ru.hogwarts.school.model.Faculty;
+import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.FacultyRepository;
+
 import java.util.Collection;
 
 @Service
 public class FacultyServiceImpl implements FacultyService {
 
     private final FacultyRepository repository;
+    private Object Collection;
 
     public FacultyServiceImpl(FacultyRepository repository) {
         this.repository = repository;
@@ -37,6 +42,10 @@ public class FacultyServiceImpl implements FacultyService {
 
     public Collection<Faculty> getAllFaculties() {
         return repository.findAll();
+    }
+
+    public Collection<Student> getStudentsOfFaculty(Long facultyId) {
+        return repository.get(facultyId).getStudents();
     }
 
 }
