@@ -12,7 +12,6 @@ import java.util.Collection;
 public class FacultyServiceImpl implements FacultyService {
 
     private final FacultyRepository repository;
-    private Object Collection;
 
     public FacultyServiceImpl(FacultyRepository repository) {
         this.repository = repository;
@@ -44,8 +43,8 @@ public class FacultyServiceImpl implements FacultyService {
         return repository.findAll();
     }
 
-    public Collection<Student> getStudentsOfFaculty(Long facultyId) {
-        return repository.get(facultyId).getStudents();
+    public Collection<Student> getStudentsOfFaculty(Long id) {
+        return repository.get(id).getStudents();
     }
 
 }

@@ -49,7 +49,7 @@ public class FacultyController {
     }
 
     @GetMapping("/{facultyId}/students")
-    public Collection<Student> findByFaculty(Long facultyId) {
-        return service.getStudentsOfFaculty(facultyId);
+    public Collection<Student> getStudentsOfFaculty(Long id) {
+        return service.getStudentsOfFaculty(id);
     }
 }
