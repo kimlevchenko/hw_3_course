@@ -1,10 +1,10 @@
 package ru.hogwarts.school.controller;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.FacultyService;
+
 import java.util.Collection;
 
 @RestController
@@ -49,7 +49,7 @@ public class FacultyController {
     }
 
     @GetMapping("/{facultyId}/students")
-    public Collection<Student> getStudentsOfFaculty(Long id) {
+    public Collection<Student> getStudentsOfFaculty(@RequestParam Long id) {
         return service.getStudentsOfFaculty(id);
     }
 }
