@@ -17,21 +17,23 @@ import java.nio.file.Path;
 import java.util.Objects;
 
 @Service
+@Transactional
 public class AvatarServiceImpl implements AvatarService {
+
+    @Value("${path.to.avatars.folder}")
+    private String avatarsDir;
 
     private final StudentRepository studentRepository;
     private final AvatarRepository avatarRepository;
-    private String avatarsDir;
+
 
     public AvatarServiceImpl(StudentRepository studentRepository,
-                             AvatarRepository avatarRepository,
-                             @Value("${path.to.avatars.folder}") String avatarsDir) {
+                             AvatarRepository avatarRepository) {
         this.studentRepository = studentRepository;
         this.avatarRepository = avatarRepository;
-        this.avatarsDir = avatarsDir;
     }
 
-    @Transactional
+    @Override
     public void upload(Long studentId, MultipartFile file) throws IOException {
         var student = studentRepository.findById(studentId)
                 .orElseThrow(StudentNotFoundException::new);
@@ -52,6 +54,7 @@ public class AvatarServiceImpl implements AvatarService {
         avatarRepository.save(avatar);
     }
 
+    @Override
     public String saveFile(MultipartFile file, Student student) {
         var dotIndex = Objects.requireNonNull(file.getOriginalFilename()).lastIndexOf('.');
         var ext = file.getOriginalFilename().substring(dotIndex + 1);
@@ -65,7 +68,7 @@ public class AvatarServiceImpl implements AvatarService {
         return path;
     }
 
-    @Transactional
+    @Override
     public Avatar find(Long studentId) {
         return avatarRepository.findByStudentId(studentId).orElse(null);
     }

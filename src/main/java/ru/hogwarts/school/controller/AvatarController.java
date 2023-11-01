@@ -23,8 +23,8 @@ public class AvatarController {
         this.service = service;
     }
 
-    @PostMapping("/{studentId}")
-    public void upload(@PathVariable Long studentId, MultipartFile file) throws IOException {
+    @PostMapping(value = "/{studentId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public void upload(@PathVariable Long studentId, @RequestParam MultipartFile file) throws IOException {
         service.upload(studentId, file);
     }
 
