@@ -32,14 +32,14 @@ public class StudentController {
         return service.getAllStudents();
     }
 
-    @PutMapping("/{id}")
-    public Student update(@RequestBody Student student, @PathVariable Long id) {
+    @PutMapping
+    public Student update(@RequestBody Student student) {
         return service.update(student);
     }
 
     @DeleteMapping("/{id}")
-    public void remove(@PathVariable Long id) {
-        service.remove(id);
+    public Student remove(@PathVariable Long id) {
+        return service.remove(id);
     }
 
     @GetMapping("/byAge")
