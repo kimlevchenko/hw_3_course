@@ -6,12 +6,14 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import ru.hogwarts.school.model.Avatar;
 import ru.hogwarts.school.service.AvatarService;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Collection;
 
 @RestController
 @RequestMapping("/avatar")
@@ -58,5 +60,11 @@ public class AvatarController {
              var in = new FileInputStream(avatar.getFilePath())) {
             in.transferTo(out);
         }
+    }
+
+    @GetMapping
+    public Collection<Avatar> findAvatars(@RequestParam int page,
+                                          @RequestParam int pageSize) {
+        return service.find(page - 1, pageSize);
     }
 }

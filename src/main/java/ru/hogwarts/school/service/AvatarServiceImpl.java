@@ -1,6 +1,7 @@
 package ru.hogwarts.school.service;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,6 +15,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Collection;
 import java.util.Objects;
 
 @Service
@@ -50,7 +52,6 @@ public class AvatarServiceImpl implements AvatarService {
         avatar.setFileSize(file.getSize());
         avatar.setMediaType(file.getContentType());
         avatar.setStudent(student);
-
         avatarRepository.save(avatar);
     }
 
@@ -71,5 +72,9 @@ public class AvatarServiceImpl implements AvatarService {
     @Override
     public Avatar find(Long studentId) {
         return avatarRepository.findByStudentId(studentId).orElse(null);
+    }
+
+    public Collection<Avatar> find(int page, int pageSize) {
+        return avatarRepository.findAll(PageRequest.of(page, pageSize)).getContent();
     }
 }
