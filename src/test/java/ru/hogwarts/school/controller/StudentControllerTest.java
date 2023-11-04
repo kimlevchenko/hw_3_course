@@ -156,18 +156,18 @@ class StudentControllerTest {
         Assertions.assertThat(students).containsExactly(s2, s3, s4, s5);
     }
 
-//    @Test
-//    void testGetFacultyOfStudent() {
-//        var savedFaculty = restTemplate.postForObject("/faculty", faculty("f1", "green"), Faculty.class);
-//        var s = student("Ron", 19);
-//        s.setFaculty(savedFaculty);
-//        var savedStudent = restTemplate.postForObject("/student", s, Student.class);
-//
-//        var result = restTemplate.getForObject("/student/" + savedStudent.getId() + "/faculty", Faculty.class);
-//        Assertions.assertThat(result).isNotNull();
-//        Assertions.assertThat(result.getName()).isEqualTo("f1");
-//        Assertions.assertThat(result.getColor()).isEqualTo("green");
-//    }
+    @Test
+    void testGetFacultyOfStudent() {
+        var savedFaculty = restTemplate.postForObject("/faculty", faculty("f1", "green"), Faculty.class);
+        var s = student("Ron", 19);
+        s.setFaculty(savedFaculty);
+        var savedStudent = restTemplate.postForObject("/student", s, Student.class);
+
+        var result = restTemplate.getForObject("/student/" + savedStudent.getId() + "/faculty", Faculty.class);
+        Assertions.assertThat(result).isNotNull();
+        Assertions.assertThat(result.getName()).isEqualTo("f1");
+        Assertions.assertThat(result.getColor()).isEqualTo("green");
+    }
 
 
     private static Faculty faculty(String name, String color) {
