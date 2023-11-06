@@ -170,7 +170,7 @@ class StudentControllerTest {
     }
 
 
-    private static Faculty faculty(String name, String color) {
+    static Faculty faculty(String name, String color) {
         var f = new Faculty();
         f.setName(name);
         f.setColor(color);

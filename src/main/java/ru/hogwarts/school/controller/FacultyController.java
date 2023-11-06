@@ -38,8 +38,8 @@ public class FacultyController {
     }
 
     @DeleteMapping("/{id}")
-    public void remove(@PathVariable Long id) {
-        service.remove(id);
+    public Faculty remove(@PathVariable Long id) {
+        return service.remove(id);
     }
 
     @GetMapping("/byNameOrColor")
@@ -48,8 +48,8 @@ public class FacultyController {
         return service.findByNameOrColor(name, color);
     }
 
-    @GetMapping("/{facultyId}/students")
-    public Collection<Student> getStudentsOfFaculty(@RequestParam Long id) {
+    @GetMapping("/{id}/students")
+    public Collection<Student> getStudentsOfFaculty(@PathVariable Long id) {
         return service.getStudentsOfFaculty(id);
     }
 }
