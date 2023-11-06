@@ -53,4 +53,9 @@ public class FacultyServiceImpl implements FacultyService {
     public Collection<Student> getStudentsOfFaculty(Long id) {
         return repository.findById(id).map(Faculty::getStudents).orElse(Collections.emptyList());
     }
+
+    @Override
+    public Collection<Faculty> findByNameAndColor(String name, String color) {
+        return repository.findByNameAndColor(name, color);
+    }
 }

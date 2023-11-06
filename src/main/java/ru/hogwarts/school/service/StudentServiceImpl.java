@@ -69,4 +69,8 @@ public class StudentServiceImpl implements StudentService {
     public Collection<Student> lastFiveStudents() {
         return repository.getLastFiveStudents();
     }
+
+    public Collection<Student> findByName(String name) {
+        return repository.findByName(name);
+    }
 }
