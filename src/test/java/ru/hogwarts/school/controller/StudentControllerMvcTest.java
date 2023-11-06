@@ -30,6 +30,7 @@ import static org.mockito.Mockito.when;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static ru.hogwarts.school.controller.ConstantForTest.MOCK_FACULTIES;
 
 @WebMvcTest
 class StudentControllerMvcTest {
@@ -194,6 +195,20 @@ class StudentControllerMvcTest {
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/student/byAge?age=" + age)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testGetAllStudents() throws Exception {
+        Long id = 2L;
+        String name = "Ron";
+        int age = 20;
+        Student student = student(id, name, age);
+        when(studentRepository.findAll()).thenReturn(Collections.singletonList(student));
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get("/student")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }

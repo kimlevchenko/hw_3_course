@@ -36,7 +36,7 @@ public class FacultyControllerMvcTest {
     @MockBean
     private FacultyRepository facultyRepository;
     @SpyBean
-    private FacultyServiceImpl facultyService;
+    private FacultyServiceImpl facultyServiceImpl;
     @InjectMocks
     private FacultyController facultyController;
 
@@ -126,7 +126,7 @@ public class FacultyControllerMvcTest {
     }
 
     @Test
-    public void testGetAllFaculty() throws Exception {
+    public void testGetAllFaculties() throws Exception {
         when(facultyRepository.findAll()).thenReturn(MOCK_FACULTIES);
 
         mockMvc.perform(MockMvcRequestBuilders
