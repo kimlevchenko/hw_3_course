@@ -52,9 +52,24 @@ public class StudentController {
         return service.findByAgeBetween(min, max);
     }
 
-    @GetMapping("/{studentId}/faculty")
-    public Faculty getFacultyOfStudent(@RequestParam Long id) {
+    @GetMapping("/{id}/faculty")
+    public Faculty getFacultyOfStudent(@PathVariable Long id) {
         return service.getFacultyOfStudent(id);
+    }
+
+    @GetMapping("/count")
+    public long getCountOfStudents() {
+        return service.studentsCount();
+    }
+
+    @GetMapping("/avgAge")
+    public double getAvgAgeOfStudents() {
+        return service.averageAge();
+    }
+
+    @GetMapping("/lastfive")
+    public Collection<Student> getLastFiveStudents() {
+        return service.lastFiveStudents();
     }
 
 }

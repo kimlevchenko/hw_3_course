@@ -6,6 +6,7 @@ import ru.hogwarts.school.model.Avatar;
 import ru.hogwarts.school.model.Student;
 
 import java.io.IOException;
+import java.util.Collection;
 
 public interface AvatarService {
 
@@ -15,5 +16,7 @@ public interface AvatarService {
     Avatar find(Long studentId);
 
     String saveFile(MultipartFile file, Student student);
+
+    Collection<Avatar> find(int page, int pageSize);
 
 }
