@@ -40,8 +40,12 @@ public class FacultyServiceImpl implements FacultyService {
     }
 
     @Override
-    public void remove(Long id) {
-        repository.deleteById(id);
+    public Faculty remove(Long id) {
+        var entity = repository.findById(id).orElse(null);
+        if (entity != null) {
+            repository.delete(entity);
+        }
+        return entity;
     }
 
     @Override
