@@ -72,4 +72,8 @@ public class StudentController {
         return service.lastFiveStudents();
     }
 
+    @GetMapping("/byName")
+    public Collection<Student> findByName(@RequestParam String name) {
+        return service.findByName(name);
+    }
 }

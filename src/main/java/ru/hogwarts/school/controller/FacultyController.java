@@ -52,4 +52,10 @@ public class FacultyController {
     public Collection<Student> getStudentsOfFaculty(@PathVariable Long id) {
         return service.getStudentsOfFaculty(id);
     }
+
+    @GetMapping("/byNameAndColor")
+    public Collection<Faculty> findByNameAndColor(@RequestParam String name,
+                                                  @RequestParam String color) {
+        return service.findByNameAndColor(name, color);
+    }
 }

@@ -29,4 +29,6 @@ public interface StudentService {
 
     Collection<Student> lastFiveStudents();
 
+    Collection<Student> findByName(String name);
+
 }
