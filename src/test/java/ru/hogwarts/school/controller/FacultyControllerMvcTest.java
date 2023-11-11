@@ -2,7 +2,6 @@ package ru.hogwarts.school.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.minidev.json.JSONObject;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
