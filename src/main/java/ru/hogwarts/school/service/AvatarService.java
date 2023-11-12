@@ -13,7 +13,7 @@ public interface AvatarService {
 
     void upload(Long studentId, MultipartFile file) throws IOException;
 
-    Avatar find(Long studentId);
+    Avatar findByIdStudent(Long studentId);
 
     String saveFile(MultipartFile file, Student student);
 

@@ -31,8 +31,8 @@ public class AvatarController {
     }
 
     @GetMapping("/{studentId}")
-    public ResponseEntity<byte[]> find(@PathVariable Long studentId) {
-        var avatar = service.find(studentId);
+    public ResponseEntity<byte[]> findByIdStudent(@PathVariable Long studentId) {
+        var avatar = service.findByIdStudent(studentId);
         if (avatar != null) {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.parseMediaType(avatar.getMediaType()));
@@ -44,7 +44,7 @@ public class AvatarController {
 
     @GetMapping("/file/{studentId}")
     public void findFile(@PathVariable Long studentId, HttpServletResponse response) throws IOException {
-        var avatar = service.find(studentId);
+        var avatar = service.findByIdStudent(studentId);
         if (avatar == null) {
             response.setStatus(404);
             return;

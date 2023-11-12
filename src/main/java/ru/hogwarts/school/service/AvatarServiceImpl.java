@@ -1,5 +1,7 @@
 package ru.hogwarts.school.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -18,9 +20,13 @@ import java.nio.file.Path;
 import java.util.Collection;
 import java.util.Objects;
 
+import static org.apache.logging.log4j.ThreadContext.isEmpty;
+
 @Service
 @Transactional
 public class AvatarServiceImpl implements AvatarService {
+
+    private final static Logger logger = LoggerFactory.getLogger(AvatarServiceImpl.class);
 
     @Value("${path.to.avatars.folder}")
     private String avatarsDir;
@@ -37,6 +43,16 @@ public class AvatarServiceImpl implements AvatarService {
 
     @Override
     public void upload(Long studentId, MultipartFile file) throws IOException {
+
+        try {
+            if (studentRepository.findById(studentId).isEmpty()) {
+                throw new RuntimeException("Student not found!");
+            }
+            return;
+        } catch (RuntimeException e) {
+            logger.error("Cannot find student with id {}", studentId);
+        }
+
         var student = studentRepository.findById(studentId)
                 .orElseThrow(StudentNotFoundException::new);
 
@@ -57,6 +73,7 @@ public class AvatarServiceImpl implements AvatarService {
 
     @Override
     public String saveFile(MultipartFile file, Student student) {
+        logger.info("SaveFile method was invoked");
         var dotIndex = Objects.requireNonNull(file.getOriginalFilename()).lastIndexOf('.');
         var ext = file.getOriginalFilename().substring(dotIndex + 1);
         var path = avatarsDir + "/" + student.getId() + "_" + student.getName() + "." + ext;
@@ -70,11 +87,14 @@ public class AvatarServiceImpl implements AvatarService {
     }
 
     @Override
-    public Avatar find(Long studentId) {
+    public Avatar findByIdStudent(Long studentId) {
+        logger.info("FindByIdStudent method was invoked with argument {}", studentId);
         return avatarRepository.findByStudentId(studentId).orElse(null);
     }
 
+    @Override
     public Collection<Avatar> find(int page, int pageSize) {
+        logger.info("Find method was invoked with arguments page {} pageSize {}", page, pageSize);
         return avatarRepository.findAll(PageRequest.of(page, pageSize)).getContent();
     }
 }
