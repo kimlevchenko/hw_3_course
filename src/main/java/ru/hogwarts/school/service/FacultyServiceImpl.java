@@ -9,6 +9,8 @@ import ru.hogwarts.school.repository.FacultyRepository;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.stream.Stream;
 
 @Service
 public class FacultyServiceImpl implements FacultyService {
@@ -73,5 +75,22 @@ public class FacultyServiceImpl implements FacultyService {
     public Collection<Faculty> findByNameAndColor(String name, String color) {
         logger.info("FindByNameAndColor method was invoked with arguments name {} color {}", name, color);
         return repository.findByNameAndColor(name, color);
+    }
+
+    @Override
+    public Faculty getLongestFacultyName() {
+        logger.info("GetLongestFacultyName method was invoked");
+        return repository.findAll().stream()
+                .max(Comparator.comparing(faculty -> faculty.getName().length()))
+                .orElse(null);
+    }
+
+    @Override
+    public int getIntegerNumber() {
+        logger.info("GetIntegerNumber method was invoked");
+        return Stream
+                .iterate(1, a -> a + 1)
+                .limit(1_000_000)
+                .reduce(0, Integer::sum);
     }
 }
