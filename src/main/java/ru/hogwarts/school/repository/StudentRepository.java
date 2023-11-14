@@ -24,5 +24,4 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     Collection<Student> getLastFiveStudents();
 
     Collection<Student> findByName(String name);
-
 }
