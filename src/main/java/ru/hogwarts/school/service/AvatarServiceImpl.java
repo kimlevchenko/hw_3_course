@@ -20,8 +20,6 @@ import java.nio.file.Path;
 import java.util.Collection;
 import java.util.Objects;
 
-import static org.apache.logging.log4j.ThreadContext.isEmpty;
-
 @Service
 @Transactional
 public class AvatarServiceImpl implements AvatarService {

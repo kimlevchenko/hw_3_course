@@ -58,4 +58,14 @@ public class FacultyController {
                                                   @RequestParam String color) {
         return service.findByNameAndColor(name, color);
     }
+
+    @GetMapping("/longestFacultyName")
+    public Faculty getLongestFacultyName() {
+        return service.getLongestFacultyName();
+    }
+
+    @GetMapping("/integerNumber")
+    public int getIntegerNumber() {
+        return service.getIntegerNumber();
+    }
 }

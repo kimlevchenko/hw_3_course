@@ -8,6 +8,9 @@ import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.StudentRepository;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -97,5 +100,25 @@ public class StudentServiceImpl implements StudentService {
     public Collection<Student> findByName(String name) {
         logger.info("FindByName method was invoked with argument {}", name);
         return repository.findByName(name);
+    }
+
+    @Override
+    public List<String> getByAlphabeticOrder() {
+        logger.info("GetByAlphabeticOrder method was invoked");
+        return repository.findAll().parallelStream()
+                .filter(Objects::nonNull)
+                .map(Student::getName)
+                .filter(name -> name.toUpperCase().startsWith("A"))
+                .sorted()
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public double getMiddleAgeOfStudents() {
+        logger.info("GetMiddleAgeOfStudents method was invoked");
+        return repository.findAll().parallelStream()
+                .mapToDouble(Student::getAge)
+                .average()
+                .orElse(0d);
     }
 }
