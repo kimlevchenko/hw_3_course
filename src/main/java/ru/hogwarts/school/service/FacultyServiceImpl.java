@@ -2,6 +2,7 @@ package ru.hogwarts.school.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
@@ -82,15 +83,27 @@ public class FacultyServiceImpl implements FacultyService {
         logger.info("GetLongestFacultyName method was invoked");
         return repository.findAll().stream()
                 .max(Comparator.comparing(faculty -> faculty.getName().length()))
-                .orElse(null);
+                .orElseThrow(() -> new RuntimeException(String.valueOf(HttpStatus.NOT_FOUND)));
     }
 
     @Override
     public int getIntegerNumber() {
+        long startTime = System.currentTimeMillis();
         logger.info("GetIntegerNumber method was invoked");
-        return Stream
-                .iterate(1, a -> a + 1)
+        Integer reduce = Stream.iterate(1, a -> a + 1)
                 .limit(1_000_000)
                 .reduce(0, Integer::sum);
+        long finishTime = System.currentTimeMillis() - startTime;
+        logger.info("Время выполнения = " + finishTime);
+
+        long startTime2 = System.currentTimeMillis();
+        logger.info("GetIntegerNumber optimize method was invoked");
+        int sum = Stream.iterate(1, a -> a + 1)
+                .limit(1_000_000)
+                .parallel()
+                .reduce(0, Integer::sum);
+        long finishTime2 = System.currentTimeMillis() - startTime2;
+        logger.info("Время выполнения после оптимизации = " + finishTime2);
+        return sum;
     }
 }
