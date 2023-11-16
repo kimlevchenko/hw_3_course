@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import ru.hogwarts.school.exception.FacultyNotFoundException;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.FacultyRepository;
@@ -83,7 +84,7 @@ public class FacultyServiceImpl implements FacultyService {
         logger.info("GetLongestFacultyName method was invoked");
         return repository.findAll().stream()
                 .max(Comparator.comparing(faculty -> faculty.getName().length()))
-                .orElseThrow(() -> new RuntimeException(String.valueOf(HttpStatus.NOT_FOUND)));
+                .orElseThrow(FacultyNotFoundException::new);
     }
 
     @Override
