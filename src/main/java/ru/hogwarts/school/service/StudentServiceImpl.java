@@ -121,4 +121,48 @@ public class StudentServiceImpl implements StudentService {
                 .average()
                 .orElse(0d);
     }
+
+    @Override
+    public void printStudentsThroughThreads() {
+        logger.info("printStudentsThroughThreads method was invoked");
+        List<Student> students = repository.findAll();
+        System.out.println(students.get(0).getName());
+        System.out.println(students.get(1).getName());
+
+        new Thread(() -> {
+            System.out.println(students.get(2).getName());
+            System.out.println(students.get(3).getName());
+        }).start();
+
+        new Thread(() -> {
+            System.out.println(students.get(4).getName());
+            System.out.println(students.get(5).getName());
+        }).start();
+    }
+
+    @Override
+    public void printStudentsThroughSyncThreads() {
+        logger.info("printStudentsThroughSyncThreads method was invoked");
+        List<Student> students = repository.findAll();
+        System.out.println(students.get(0).getName());
+        System.out.println(students.get(1).getName());
+
+        new Thread(() -> {
+            synchronized (StudentService.class) {
+                System.out.println(students.get(2).getName());
+            }
+            synchronized (StudentService.class) {
+                System.out.println(students.get(3).getName());
+            }
+        }).start();
+
+        new Thread(() -> {
+            synchronized (StudentService.class) {
+                System.out.println(students.get(4).getName());
+            }
+            synchronized (StudentService.class) {
+                System.out.println(students.get(5).getName());
+            }
+        }).start();
+    }
 }

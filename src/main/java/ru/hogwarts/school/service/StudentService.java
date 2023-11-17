@@ -35,4 +35,8 @@ public interface StudentService {
     double getMiddleAgeOfStudents();
 
     List<String> getByAlphabeticOrder();
+
+    void printStudentsThroughThreads();
+
+    void printStudentsThroughSyncThreads();
 }

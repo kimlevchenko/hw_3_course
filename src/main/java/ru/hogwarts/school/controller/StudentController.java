@@ -87,4 +87,14 @@ public class StudentController {
     public double getMiddleAgeOfStudents() {
         return service.getMiddleAgeOfStudents();
     }
+
+    @GetMapping("/printNamesThread")
+    public void printStudentsThroughThreads() {
+        service.printStudentsThroughThreads();
+    }
+
+    @GetMapping("/printNamesSyncThread")
+    public void printStudentsThroughSyncThreads() {
+        service.printStudentsThroughSyncThreads();
+    }
 }
