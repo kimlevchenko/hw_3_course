@@ -105,10 +105,11 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public List<String> getByAlphabeticOrder() {
         logger.info("GetByAlphabeticOrder method was invoked");
-        return repository.findAll().parallelStream()
+        return repository.findAll().stream()
                 .filter(Objects::nonNull)
                 .map(Student::getName)
-                .filter(name -> name.toUpperCase().startsWith("A"))
+                .map(String::toUpperCase)
+                .filter(name -> name.startsWith("A"))
                 .sorted()
                 .collect(Collectors.toList());
     }
@@ -116,7 +117,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public double getMiddleAgeOfStudents() {
         logger.info("GetMiddleAgeOfStudents method was invoked");
-        return repository.findAll().parallelStream()
+        return repository.findAll().stream()
                 .mapToDouble(Student::getAge)
                 .average()
                 .orElse(0d);
