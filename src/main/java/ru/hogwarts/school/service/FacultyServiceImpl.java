@@ -2,7 +2,6 @@ package ru.hogwarts.school.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.exception.FacultyNotFoundException;
 import ru.hogwarts.school.model.Faculty;
@@ -12,6 +11,7 @@ import ru.hogwarts.school.repository.FacultyRepository;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 @Service
@@ -94,17 +94,14 @@ public class FacultyServiceImpl implements FacultyService {
         Integer reduce = Stream.iterate(1, a -> a + 1)
                 .limit(1_000_000)
                 .reduce(0, Integer::sum);
-        long finishTime = System.currentTimeMillis() - startTime;
-        logger.info("Время выполнения = " + finishTime);
+        logger.info("Время выполнения = {}", System.currentTimeMillis() - startTime);
 
         long startTime2 = System.currentTimeMillis();
         logger.info("GetIntegerNumber optimize method was invoked");
-        int sum = Stream.iterate(1, a -> a + 1)
+        int sum = IntStream.iterate(1, a -> a + 1)
                 .limit(1_000_000)
-                .parallel()
                 .reduce(0, Integer::sum);
-        long finishTime2 = System.currentTimeMillis() - startTime2;
-        logger.info("Время выполнения после оптимизации = " + finishTime2);
+        logger.info("Время выполнения после оптимизации = {}", System.currentTimeMillis() - startTime2);
         return sum;
     }
 }
